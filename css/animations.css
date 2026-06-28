@@ -1,0 +1,547 @@
+/* =====================================================
+   STACKLY — PREMIUM ANIMATIONS SYSTEM
+   animations.css
+===================================================== */
+
+/* ── 0. Google Font ───────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+/* ── 1. CSS Custom Properties ─────────────────────── */
+:root {
+  --anim-primary: #2E8B57;
+  --anim-glow:    rgba(46,139,87,.55);
+  --anim-gold:    #4ade80;
+  --anim-ease:    cubic-bezier(.22,.68,0,1.2);
+}
+
+/* ── 2. PAGE LOADER ───────────────────────────────── */
+#page-loader {
+  position: fixed;
+  inset: 0;
+  background: #0B1120;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  transition: opacity .6s ease, visibility .6s ease;
+}
+
+#page-loader.loaded {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loader-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: loaderLogoPulse 1.6s ease-in-out infinite;
+}
+
+.loader-logo img {
+  height: 64px;
+  width: auto;
+  /* Green tint matching site brand */
+  filter: brightness(0) invert(50%) sepia(80%) saturate(340%) hue-rotate(120deg) brightness(85%) contrast(110%);
+  drop-shadow: 0 0 20px rgba(74,222,128,.5);
+}
+
+@keyframes loaderLogoPulse {
+  0%, 100% { transform: scale(1);    filter: drop-shadow(0 0 8px rgba(74,222,128,.4)); }
+  50%       { transform: scale(1.08); filter: drop-shadow(0 0 22px rgba(74,222,128,.8)); }
+}
+
+.loader-bar-wrap {
+  width: 200px;
+  height: 4px;
+  background: rgba(255,255,255,.12);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.loader-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #4ade80, #2E8B57);
+  border-radius: 4px;
+  animation: loadProgress 1.4s var(--anim-ease) forwards;
+}
+
+@keyframes loadProgress {
+  0%   { width: 0%; }
+  60%  { width: 80%; }
+  100% { width: 100%; }
+}
+
+/* ── 3. SCROLL PROGRESS BAR ───────────────────────── */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, #4ade80, #2E8B57, #86efac);
+  z-index: 10001;
+  border-radius: 0 4px 4px 0;
+  transition: width .1s linear;
+  box-shadow: 0 0 10px rgba(74,222,128,.6);
+}
+
+/* ── 4. CURSOR SPOTLIGHT ──────────────────────────── */
+#cursor-spotlight {
+  position: fixed;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(46,139,87,.10) 0%,
+    rgba(46,139,87,.04) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  transition: opacity .4s ease;
+  opacity: 0;
+}
+
+body:hover #cursor-spotlight { opacity: 1; }
+
+/* ── 5. HERO PARTICLES ────────────────────────────── */
+#hero-particles {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hparticle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(74,222,128,.25);
+  filter: blur(1px);
+  animation: floatParticle linear infinite;
+}
+
+@keyframes floatParticle {
+  0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: .6; }
+  100% { transform: translateY(-120px) scale(1.2); opacity: 0; }
+}
+
+/* ── 6. STAGGER SCROLL REVEAL ─────────────────────── */
+.anim-reveal {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity .75s ease, transform .75s ease;
+}
+
+.anim-reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.anim-reveal-left {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: opacity .75s ease, transform .75s ease;
+}
+.anim-reveal-left.in-view {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.anim-reveal-right {
+  opacity: 0;
+  transform: translateX(50px);
+  transition: opacity .75s ease, transform .75s ease;
+}
+.anim-reveal-right.in-view {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.anim-reveal-scale {
+  opacity: 0;
+  transform: scale(.85);
+  transition: opacity .75s ease, transform .75s ease;
+}
+.anim-reveal-scale.in-view {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Stagger delays */
+.anim-d1 { transition-delay: .08s; }
+.anim-d2 { transition-delay: .18s; }
+.anim-d3 { transition-delay: .28s; }
+.anim-d4 { transition-delay: .38s; }
+
+/* ── 7. SECTION HEADING SPLIT REVEAL ─────────────── */
+.split-heading .char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(30px) rotate(8deg);
+  transition: opacity .5s ease, transform .5s ease;
+}
+.split-heading.in-view .char {
+  opacity: 1;
+  transform: translateY(0) rotate(0deg);
+}
+
+/* ── 8. PREMIUM CARD STYLES ───────────────────────── */
+
+/* Service cards */
+.service-card {
+  position: relative;
+  overflow: hidden;
+  border: 1.5px solid transparent;
+  background-clip: padding-box;
+  transition: transform .38s var(--anim-ease),
+              box-shadow .38s ease,
+              border-color .38s ease !important;
+  will-change: transform;
+  transform-style: preserve-3d;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(46,139,87,0) 0%,
+    rgba(74,222,128,.06) 50%,
+    rgba(46,139,87,0) 100%
+  );
+  opacity: 0;
+  transition: opacity .4s ease;
+  pointer-events: none;
+}
+
+.service-card:hover::before { opacity: 1; }
+
+.service-card::after {
+  content: '';
+  position: absolute;
+  top: -2px; left: -100%;
+  width: 60%;
+  height: calc(100% + 4px);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,.35),
+    transparent
+  );
+  transform: skewX(-20deg);
+  transition: left .6s ease;
+  pointer-events: none;
+}
+.service-card:hover::after { left: 140%; }
+
+.service-card:hover {
+  transform: translateY(-12px) scale(1.02) !important;
+  box-shadow: 0 24px 60px rgba(46,139,87,.22) !important;
+  border-color: rgba(46,139,87,.3) !important;
+}
+
+/* Program cards */
+.program-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform .38s var(--anim-ease),
+              box-shadow .38s ease !important;
+  transform-style: preserve-3d;
+}
+
+.program-card img {
+  transition: transform .5s ease !important;
+}
+.program-card:hover img {
+  transform: scale(1.07);
+}
+
+.program-card::after {
+  content: '';
+  position: absolute;
+  top: -2px; left: -100%;
+  width: 60%;
+  height: calc(100% + 4px);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.28), transparent);
+  transform: skewX(-20deg);
+  transition: left .6s ease;
+  pointer-events: none;
+}
+.program-card:hover::after { left: 140%; }
+
+.program-card:hover {
+  transform: translateY(-12px) scale(1.02) !important;
+  box-shadow: 0 28px 70px rgba(46,139,87,.22) !important;
+}
+
+/* Blog cards */
+.blog-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform .38s var(--anim-ease),
+              box-shadow .38s ease,
+              border-color .38s ease !important;
+  border: 1.5px solid transparent;
+  background-clip: padding-box;
+}
+
+.blog-card::after {
+  content: '';
+  position: absolute;
+  top: -2px; left: -100%;
+  width: 60%;
+  height: calc(100% + 4px);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.28), transparent);
+  transform: skewX(-20deg);
+  transition: left .6s ease;
+  pointer-events: none;
+}
+.blog-card:hover::after { left: 140%; }
+
+.blog-card:hover {
+  transform: translateY(-12px) scale(1.02) !important;
+  box-shadow: 0 24px 60px rgba(46,139,87,.18) !important;
+  border-color: rgba(46,139,87,.25) !important;
+}
+
+/* Stat cards */
+.stat-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform .35s var(--anim-ease),
+              box-shadow .35s ease !important;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(46,139,87,.04),
+    rgba(74,222,128,.08),
+    rgba(46,139,87,.04)
+  );
+  opacity: 0;
+  transition: opacity .4s ease;
+}
+.stat-card:hover::before { opacity: 1; }
+.stat-card:hover {
+  transform: translateY(-8px) scale(1.03) !important;
+  box-shadow: 0 20px 50px rgba(46,139,87,.2) !important;
+}
+
+.stat-card h2 {
+  background: linear-gradient(135deg, #2E8B57, #4ade80);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── 9. FLOATING ICON ANIMATION ───────────────────── */
+.service-card i {
+  display: inline-block;
+  transition: transform .4s var(--anim-ease), color .4s ease;
+}
+.service-card:hover i {
+  transform: scale(1.25) rotate(-8deg);
+  color: #2E8B57;
+}
+
+/* ── 10. SECTION TITLE UNDERLINE REVEAL ───────────── */
+.section-underline {
+  position: relative;
+  display: inline-block;
+}
+.section-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #2E8B57, #4ade80);
+  border-radius: 2px;
+  transition: width .8s var(--anim-ease);
+}
+.section-underline.in-view::after {
+  width: 100%;
+}
+
+/* ── 11. FLOATING ORBS (background decoration) ──── */
+.floating-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 0;
+  animation: orbFloat ease-in-out infinite alternate;
+}
+
+@keyframes orbFloat {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(20px, -30px) scale(1.1); }
+}
+
+/* Orb variants added to sections via JS */
+.orb-green  { background: rgba(46,139,87,.12); }
+.orb-mint   { background: rgba(74,222,128,.09); }
+.orb-teal   { background: rgba(20,184,166,.08); }
+
+/* ── 12. TESTIMONIAL BOX ────────────────────────── */
+.testimonial-box {
+  transition: transform .38s var(--anim-ease),
+              box-shadow .38s ease !important;
+  position: relative;
+  overflow: hidden;
+}
+.testimonial-box::before {
+  content: '\201C';
+  position: absolute;
+  top: -10px; left: 20px;
+  font-size: 8rem;
+  font-family: Georgia, serif;
+  color: rgba(46,139,87,.08);
+  line-height: 1;
+  pointer-events: none;
+}
+.testimonial-box:hover {
+  transform: translateY(-8px) scale(1.015) !important;
+  box-shadow: 0 24px 60px rgba(46,139,87,.18) !important;
+}
+
+/* ── 13. NAVBAR GLASS ON SCROLL ────────────────── */
+header.glass-nav {
+  background: rgba(255,255,255,.82) !important;
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  box-shadow: 0 4px 30px rgba(0,0,0,.1) !important;
+  border-bottom: 1px solid rgba(255,255,255,.6);
+}
+
+/* ── 14. BUTTON MAGNETIC EFFECT ─────────────────── */
+.magnetic-btn {
+  transition: transform .25s var(--anim-ease), box-shadow .25s ease;
+}
+
+/* ── 15. FOOTER LINK HOVER ──────────────────────── */
+.footer-box a {
+  position: relative;
+  transition: color .3s ease, padding-left .3s ease;
+}
+.footer-box a::before {
+  content: '→';
+  position: absolute;
+  left: -18px;
+  opacity: 0;
+  transition: opacity .3s ease, left .3s ease;
+  color: var(--anim-primary);
+  font-size: .85em;
+}
+.footer-box a:hover {
+  color: #4ade80 !important;
+  padding-left: 18px;
+}
+.footer-box a:hover::before {
+  opacity: 1;
+  left: 0;
+}
+
+/* ── 16. NAV LINK HOVER ─────────────────────────── */
+.nav-links a {
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #2E8B57, #4ade80);
+  border-radius: 2px;
+  transition: width .3s ease;
+}
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
+}
+
+/* ── 17. ICON GLOW on HOVER ─────────────────────── */
+.service-card:hover i,
+.us-glass-card:hover .us-icon,
+.us-dark-card:hover .us-icon {
+  filter: drop-shadow(0 0 10px rgba(74,222,128,.6));
+}
+
+/* ── 18. KEYFRAME LIBRARY ───────────────────────── */
+@keyframes gentleFloat {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+
+@keyframes rotateIn {
+  from { opacity:0; transform: rotate(-15deg) scale(.8); }
+  to   { opacity:1; transform: rotate(0deg) scale(1); }
+}
+
+@keyframes slideInLeft {
+  from { opacity:0; transform: translateX(-60px); }
+  to   { opacity:1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity:0; transform: translateX(60px); }
+  to   { opacity:1; transform: translateX(0); }
+}
+
+@keyframes bounceIn {
+  0%   { opacity:0; transform: scale(0.3); }
+  50%  { opacity:.9; transform: scale(1.05); }
+  70%  { transform: scale(0.97); }
+  100% { opacity:1; transform: scale(1); }
+}
+
+@keyframes pulseRing {
+  0%   { box-shadow: 0 0 0 0 var(--anim-glow); }
+  70%  { box-shadow: 0 0 0 14px rgba(46,139,87,0); }
+  100% { box-shadow: 0 0 0 0 rgba(46,139,87,0); }
+}
+
+/* ── 19. RIPPLE ON CARDS ────────────────────────── */
+.card-ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(46,139,87,.2);
+  transform: scale(0);
+  animation: cardRipple .65s linear;
+  pointer-events: none;
+  width: 80px;
+  height: 80px;
+  margin: -40px;
+}
+@keyframes cardRipple {
+  to { transform: scale(5); opacity: 0; }
+}
+
+/* ── 20. MOBILE SAFETY ──────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
