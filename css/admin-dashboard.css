@@ -314,59 +314,282 @@ box-shadow:0 10px 25px rgba(0,0,0,.2);
 }
 
 /* ========================
-   Premium Animations
+   PREMIUM ANIMATION SUITE
 ======================== */
 
+/* ---- Page Entrance ---- */
+@keyframes pageFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.main-content {
+  animation: pageFadeIn 0.6s ease forwards;
+}
+
+/* ---- Core Keyframes ---- */
 @keyframes slideInLeft {
-  from { transform: translateX(-50px); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
+  from { transform: translateX(-60px); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
 }
 
 @keyframes fadeUp {
-  from { transform: translateY(30px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from { transform: translateY(40px) scale(0.97); opacity: 0; }
+  to   { transform: translateY(0)    scale(1);    opacity: 1; }
+}
+
+@keyframes springPop {
+  0%   { transform: scale(0.85); opacity: 0; }
+  60%  { transform: scale(1.04); opacity: 1; }
+  100% { transform: scale(1);    opacity: 1; }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+@keyframes chartGrow {
+  from { transform: scaleY(0); opacity: 0; }
+  to   { transform: scaleY(1); opacity: 1; }
+}
+
+@keyframes iconFloat {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-6px); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 5px 15px rgba(46,139,87,0.08); }
+  50%       { box-shadow: 0 10px 35px rgba(46,139,87,0.28); }
+}
+
+@keyframes notifySlideIn {
+  from { transform: translateX(30px); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+@keyframes listItemReveal {
+  from { transform: translateX(-20px); opacity: 0; }
+  to   { transform: translateX(0);     opacity: 1; }
+}
+
+/* ---- Sidebar: Staggered Slide-In ---- */
+.sidebar {
+  animation: slideInLeft 0.5s ease forwards;
 }
 
 .sidebar ul li {
-  animation: slideInLeft 0.5s ease forwards;
+  animation: slideInLeft 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
   opacity: 0;
+  position: relative;
+  overflow: hidden;
+}
+.sidebar ul li:nth-child(1) { animation-delay: 0.10s; }
+.sidebar ul li:nth-child(2) { animation-delay: 0.18s; }
+.sidebar ul li:nth-child(3) { animation-delay: 0.26s; }
+.sidebar ul li:nth-child(4) { animation-delay: 0.34s; }
+.sidebar ul li:nth-child(5) { animation-delay: 0.42s; }
+.sidebar ul li:nth-child(6) { animation-delay: 0.50s; }
+.sidebar ul li:nth-child(7) { animation-delay: 0.58s; }
+.sidebar ul li:nth-child(8) { animation-delay: 0.66s; }
+
+/* Floating icon on active/hovered sidebar item */
+.sidebar ul li.active i,
+.sidebar ul li:hover i {
+  animation: iconFloat 1.8s ease-in-out infinite;
 }
 
-.sidebar ul li:nth-child(1) { animation-delay: 0.1s; }
-.sidebar ul li:nth-child(2) { animation-delay: 0.2s; }
-.sidebar ul li:nth-child(3) { animation-delay: 0.3s; }
-.sidebar ul li:nth-child(4) { animation-delay: 0.4s; }
-.sidebar ul li:nth-child(5) { animation-delay: 0.5s; }
-.sidebar ul li:nth-child(6) { animation-delay: 0.6s; }
-.sidebar ul li:nth-child(7) { animation-delay: 0.7s; }
-.sidebar ul li:nth-child(8) { animation-delay: 0.8s; }
-
-.topbar, .stats-grid, .content-grid, .table-card, .chart-section, .activity-card {
-  animation: fadeUp 0.8s ease forwards;
-  opacity: 0;
+/* Slide indicator bar */
+.sidebar ul li::after {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: #5cb85c;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.3s ease;
+  border-radius: 0 3px 3px 0;
+}
+.sidebar ul li:hover::after,
+.sidebar ul li.active::after {
+  transform: scaleY(1);
 }
 
-.topbar { animation-delay: 0.2s; }
-.stats-grid { animation-delay: 0.4s; }
-.content-grid, .table-card { animation-delay: 0.6s; }
-.chart-section { animation-delay: 0.8s; }
-.activity-card { animation-delay: 1.0s; }
+/* ---- Topbar: Glassmorphism + Fade ---- */
+.topbar {
+  animation: fadeUp 0.6s ease 0.15s both;
+  background: rgba(255, 255, 255, 0.88) !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.6);
+  box-shadow: 0 8px 32px rgba(46,139,87,0.08) !important;
+}
+
+/* ---- Admin Profile glow on hover ---- */
+.admin-profile {
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.admin-profile:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(46,139,87,0.20) !important;
+}
+
+/* ---- Stat Cards: Spring + Shimmer ---- */
+.stats-grid {
+  animation: fadeUp 0.7s ease 0.35s both;
+}
 
 .stat-card {
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation: springPop 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  border: 1px solid rgba(46,139,87,0.06);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+}
+.stat-card:nth-child(1) { animation-delay: 0.40s; }
+.stat-card:nth-child(2) { animation-delay: 0.52s; }
+.stat-card:nth-child(3) { animation-delay: 0.64s; }
+.stat-card:nth-child(4) { animation-delay: 0.76s; }
+
+/* Shimmer sweep on load */
+.stat-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.55) 50%, transparent 60%);
+  background-size: 200% 100%;
+  animation: shimmer 2.2s ease 0.8s 1 forwards;
+  pointer-events: none;
+  border-radius: inherit;
 }
 
 .stat-card:hover {
-  transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+  transform: translateY(-12px) scale(1.03) !important;
+  box-shadow: 0 20px 45px rgba(46,139,87,0.18) !important;
+  animation: glowPulse 2s ease-in-out infinite;
 }
 
+/* Floating icon inside stat card */
+.stat-card:hover .icon i {
+  animation: iconFloat 1.4s ease-in-out infinite;
+}
+.icon {
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.stat-card:hover .icon {
+  background: var(--primary);
+  color: white;
+  transform: scale(1.12);
+}
+.stat-card:hover .icon i {
+  color: white;
+}
+
+/* Stat number pop */
+.stat-card h2 {
+  animation: springPop 0.5s ease 0.9s both;
+}
+
+/* ---- Revenue Chart Bars: Grow from bottom ---- */
+.chart-section {
+  animation: fadeUp 0.7s ease 0.50s both;
+}
+
+.bar {
+  transform-origin: bottom;
+  animation: chartGrow 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.b1 { animation-delay: 0.55s; }
+.b2 { animation-delay: 0.65s; }
+.b3 { animation-delay: 0.75s; }
+.b4 { animation-delay: 0.85s; }
+.b5 { animation-delay: 0.95s; }
+.b6 { animation-delay: 1.05s; }
+
+/* Bar hover glow */
+.bar {
+  transition: filter 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+}
+.bar:hover {
+  filter: brightness(1.2) drop-shadow(0 0 8px rgba(46,139,87,0.5));
+  transform-origin: bottom;
+  transform: scaleY(1.06) scaleX(1.08);
+}
+
+/* ---- Content Grid ---- */
+.content-grid {
+  animation: fadeUp 0.7s ease 0.60s both;
+}
+
+/* ---- Table & Notification Cards ---- */
+.table-card {
+  animation: fadeUp 0.7s ease 0.65s both;
+  border: 1px solid rgba(46,139,87,0.06);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.table-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(46,139,87,0.10) !important;
+}
+
+/* Table row hover */
 table tr {
-  transition: background 0.3s ease;
+  transition: background 0.25s ease;
+}
+table tr:hover td {
+  background: var(--primary-light);
 }
 
-table tr:hover td {
-  background: var(--background);
+/* ---- Notification Cards: staggered slide ---- */
+.notification-card {
+  animation: fadeUp 0.7s ease 0.70s both;
+}
+
+.notify {
+  animation: notifySlideIn 0.5s ease both;
+  border-left: 3px solid transparent;
+  transition: all 0.3s ease;
+}
+.notify:nth-child(1) { animation-delay: 0.75s; }
+.notify:nth-child(2) { animation-delay: 0.85s; }
+.notify:nth-child(3) { animation-delay: 0.95s; }
+.notify:nth-child(4) { animation-delay: 1.05s; }
+
+.notify:hover {
+  border-left-color: var(--primary);
+  transform: translateX(5px);
+  background: var(--primary-light);
+}
+
+/* ---- Activity List: Reveal ---- */
+.activity-card {
+  animation: fadeUp 0.7s ease 0.75s both;
+}
+
+.activity-card li {
+  animation: listItemReveal 0.4s ease both;
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+.activity-card li:nth-child(1) { animation-delay: 0.80s; }
+.activity-card li:nth-child(2) { animation-delay: 0.90s; }
+.activity-card li:nth-child(3) { animation-delay: 1.00s; }
+.activity-card li:nth-child(4) { animation-delay: 1.10s; }
+.activity-card li:nth-child(5) { animation-delay: 1.20s; }
+
+.activity-card li:hover {
+  color: var(--primary);
+  transform: translateX(6px);
+}
+
+/* ---- Respect reduced-motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* ========================

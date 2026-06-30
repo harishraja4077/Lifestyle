@@ -9,6 +9,41 @@ window.addEventListener("load", () => {
 
     document.body.classList.add("loaded");
 
+    // Dynamic user display based on logged-in email
+    const userEmail = localStorage.getItem("userEmail");
+    const userRole  = localStorage.getItem("userRole");
+    if (userEmail) {
+        // Update all user-dashboard topbar profile names (Sarah Johnson)
+        const profileNameElements = document.querySelectorAll(".profile h4, .profile-left h2");
+        profileNameElements.forEach(el => {
+            if (el.textContent.trim() === "Sarah Johnson") {
+                el.textContent = userEmail;
+            }
+        });
+
+        // Update admin dashboard profile name/email
+        const adminProfileNameEl = document.querySelector(".admin-profile h4");
+        if (adminProfileNameEl && adminProfileNameEl.textContent.trim() === "Admin") {
+            adminProfileNameEl.textContent = userEmail;
+        }
+
+        // Update the topbar Welcome Back greeting to show the email
+        const welcomeH1 = document.querySelector(".topbar-welcome h1");
+        if (welcomeH1 && welcomeH1.textContent.trim() === "Welcome Back") {
+            welcomeH1.textContent = "Welcome Back, " + userEmail;
+        }
+
+        // Update profile email on user-profile.html
+        const infoEmailElements = document.querySelectorAll(".profile-right .info");
+        infoEmailElements.forEach(info => {
+            const h4 = info.querySelector("h4");
+            const p  = info.querySelector("p");
+            if (h4 && p && h4.textContent.trim() === "Email" && p.textContent.trim() === "sarah.j@example.com") {
+                p.textContent = userEmail;
+            }
+        });
+    }
+
 });
 
 
@@ -25,6 +60,10 @@ if (loginForm) {
         e.preventDefault();
 
         const role = document.getElementById("role").value;
+        const emailInput = loginForm.querySelector('input[type="email"]');
+        const email = emailInput ? emailInput.value : '';
+        localStorage.setItem("userEmail", email);
+        localStorage.setItem("userRole", role);
 
         if (role === "admin") {
 
@@ -175,6 +214,8 @@ function logout() {
 
     if (confirmLogout) {
 
+        localStorage.removeItem("userEmail");
+        localStorage.removeItem("userRole");
         window.location.href =
             "login.html";
 

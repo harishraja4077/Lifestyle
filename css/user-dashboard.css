@@ -360,60 +360,304 @@ box-shadow:0 10px 25px rgba(0,0,0,.2);
 }
 
 /* ========================
-   Premium Animations
+   PREMIUM ANIMATION SUITE
 ======================== */
 
+/* ---- Page Entrance ---- */
+@keyframes pageFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.main-content {
+  animation: pageFadeIn 0.6s ease forwards;
+}
+
+/* ---- Core Keyframes ---- */
 @keyframes slideInLeft {
-  from { transform: translateX(-50px); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
+  from { transform: translateX(-60px); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
 }
 
 @keyframes fadeUp {
-  from { transform: translateY(30px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from { transform: translateY(40px) scale(0.97); opacity: 0; }
+  to   { transform: translateY(0)    scale(1);    opacity: 1; }
+}
+
+@keyframes springPop {
+  0%   { transform: scale(0.85); opacity: 0; }
+  60%  { transform: scale(1.04); opacity: 1; }
+  100% { transform: scale(1);    opacity: 1; }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+@keyframes progressShine {
+  0%   { left: -40%; }
+  100% { left: 120%; }
+}
+
+@keyframes iconFloat {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-6px); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 5px 15px rgba(46,139,87,0.08); }
+  50%       { box-shadow: 0 10px 35px rgba(46,139,87,0.28); }
+}
+
+@keyframes borderGlow {
+  0%, 100% { border-color: transparent; }
+  50%       { border-color: rgba(46,139,87,0.5); }
+}
+
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- Sidebar: Staggered Slide-In ---- */
+.sidebar {
+  animation: slideInLeft 0.5s ease forwards;
 }
 
 .sidebar ul li {
-  animation: slideInLeft 0.5s ease forwards;
+  animation: slideInLeft 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
   opacity: 0;
 }
+.sidebar ul li:nth-child(1) { animation-delay: 0.10s; }
+.sidebar ul li:nth-child(2) { animation-delay: 0.18s; }
+.sidebar ul li:nth-child(3) { animation-delay: 0.26s; }
+.sidebar ul li:nth-child(4) { animation-delay: 0.34s; }
+.sidebar ul li:nth-child(5) { animation-delay: 0.42s; }
+.sidebar ul li:nth-child(6) { animation-delay: 0.50s; }
+.sidebar ul li:nth-child(7) { animation-delay: 0.58s; }
+.sidebar ul li:nth-child(8) { animation-delay: 0.66s; }
 
-.sidebar ul li:nth-child(1) { animation-delay: 0.1s; }
-.sidebar ul li:nth-child(2) { animation-delay: 0.2s; }
-.sidebar ul li:nth-child(3) { animation-delay: 0.3s; }
-.sidebar ul li:nth-child(4) { animation-delay: 0.4s; }
-.sidebar ul li:nth-child(5) { animation-delay: 0.5s; }
-.sidebar ul li:nth-child(6) { animation-delay: 0.6s; }
-.sidebar ul li:nth-child(7) { animation-delay: 0.7s; }
-.sidebar ul li:nth-child(8) { animation-delay: 0.8s; }
-
-.topbar, .stats-grid, .content-grid, .table-card, .profile-card, .progress-section, .programs, .appointment-card {
-  animation: fadeUp 0.8s ease forwards;
-  opacity: 0;
+/* Floating icon on active sidebar item */
+.sidebar ul li.active i,
+.sidebar ul li:hover i {
+  animation: iconFloat 1.8s ease-in-out infinite;
 }
 
-.topbar { animation-delay: 0.2s; }
-.stats-grid { animation-delay: 0.4s; }
-.content-grid, .table-card, .profile-card { animation-delay: 0.6s; }
-.progress-section, .appointment-card { animation-delay: 0.8s; }
-.programs { animation-delay: 1.0s; }
-
-/* Enhanced Hover Interactions */
-.stat-card, .program-card, .appointment-box {
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+/* ---- Topbar: Glassmorphism + Fade ---- */
+.topbar {
+  animation: fadeUp 0.6s ease 0.15s both;
+  background: rgba(255, 255, 255, 0.88) !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.6);
+  box-shadow: 0 8px 32px rgba(46,139,87,0.08) !important;
 }
 
-.stat-card:hover, .program-card:hover, .appointment-box:hover {
-  transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+/* ---- Profile badge glow on hover ---- */
+.profile {
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.profile:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(46,139,87,0.20) !important;
 }
 
+/* ---- Profile Card: Spring Entrance ---- */
+.profile-card {
+  animation: springPop 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
+  border: 1px solid rgba(46,139,87,0.08);
+  transition: box-shadow 0.4s ease, transform 0.4s ease;
+}
+.profile-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 50px rgba(46,139,87,0.12) !important;
+}
+
+/* Animated avatar ring */
+.profile-left img {
+  border: 3px solid transparent;
+  background-clip: padding-box;
+  animation: borderGlow 3s ease-in-out infinite;
+  transition: transform 0.3s ease;
+}
+.profile-left img:hover {
+  transform: scale(1.06) rotate(2deg);
+}
+
+/* ---- Stat Cards: Spring + Shimmer ---- */
+.stats-grid {
+  animation: fadeUp 0.7s ease 0.35s both;
+}
+
+.stat-card {
+  animation: springPop 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  border: 1px solid rgba(46,139,87,0.06);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+}
+.stat-card:nth-child(1) { animation-delay: 0.40s; }
+.stat-card:nth-child(2) { animation-delay: 0.52s; }
+.stat-card:nth-child(3) { animation-delay: 0.64s; }
+.stat-card:nth-child(4) { animation-delay: 0.76s; }
+
+/* Shimmer sweep on load */
+.stat-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.55) 50%, transparent 60%);
+  background-size: 200% 100%;
+  animation: shimmer 2.2s ease 0.8s 1 forwards;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.stat-card:hover {
+  transform: translateY(-12px) scale(1.03) !important;
+  box-shadow: 0 20px 45px rgba(46,139,87,0.18) !important;
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+/* Floating icon inside stat card */
+.stat-card i {
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+.stat-card:hover i {
+  animation: iconFloat 1.4s ease-in-out infinite;
+  color: var(--primary-dark);
+}
+
+/* Stat number entrance */
+.stat-card h2 {
+  animation: countUp 0.5s ease 0.9s both;
+}
+
+/* ---- Progress Bars: Shine wave ---- */
+.progress-section {
+  animation: fadeUp 0.7s ease 0.55s both;
+}
+
+.progress-fill {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(90deg, var(--primary-dark), var(--primary), #5cb85c) !important;
+  transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 35%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  animation: progressShine 2.5s ease 1.2s infinite;
+}
+
+/* ---- Program Cards: Spring Stagger ---- */
+.programs {
+  animation: fadeUp 0.7s ease 0.70s both;
+}
+
+.program-card {
+  border: 1px solid rgba(46,139,87,0.06);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+}
+.program-grid .program-card:nth-child(1) { animation: springPop 0.6s ease 0.70s both; }
+.program-grid .program-card:nth-child(2) { animation: springPop 0.6s ease 0.82s both; }
+.program-grid .program-card:nth-child(3) { animation: springPop 0.6s ease 0.94s both; }
+
+.program-card:hover {
+  transform: translateY(-12px) scale(1.03) !important;
+  box-shadow: 0 20px 45px rgba(46,139,87,0.16) !important;
+}
+
+.program-card i {
+  transition: transform 0.3s ease;
+}
+.program-card:hover i {
+  animation: iconFloat 1.4s ease-in-out infinite;
+  color: var(--primary-dark);
+}
+
+/* Gradient top-border on hover */
+.program-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary-dark), var(--primary), #5cb85c);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+  border-radius: 3px 3px 0 0;
+}
+.program-card:hover::before {
+  transform: scaleX(1);
+}
+
+/* ---- Appointment Card ---- */
+.appointment-card {
+  animation: fadeUp 0.7s ease 0.80s both;
+}
+
+.appointment-box {
+  border-left: 3px solid transparent;
+  transition: all 0.35s ease !important;
+}
+.appointment-box:hover {
+  border-left-color: var(--primary);
+  transform: translateX(6px) !important;
+  box-shadow: 0 8px 25px rgba(46,139,87,0.12) !important;
+}
+
+/* ---- Info boxes (profile details) ---- */
+.info {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.info:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(46,139,87,0.12);
+}
+
+/* ---- Table rows ---- */
 table tr {
-  transition: background 0.3s ease;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+table tr:hover td {
+  background: var(--primary-light);
 }
 
-table tr:hover td {
-  background: var(--background);
+/* ---- Sidebar nav hover: slide indicator ---- */
+.sidebar ul li {
+  position: relative;
+  overflow: hidden;
+}
+.sidebar ul li::after {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: #5cb85c;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.3s ease;
+  border-radius: 0 3px 3px 0;
+}
+.sidebar ul li:hover::after,
+.sidebar ul li.active::after {
+  transform: scaleY(1);
+}
+
+/* ---- Respect reduced-motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* ========================
