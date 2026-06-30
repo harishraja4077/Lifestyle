@@ -94,10 +94,32 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 margin-bottom:30px;
+padding: 15px 30px;
 }
 
 .topbar-mobile-logo {
   display: none;
+}
+
+.topbar-welcome {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.topbar-welcome h1 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.topbar-welcome p {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin: 4px 0 0 0;
+  line-height: 1.2;
 }
 
 .profile{
@@ -105,15 +127,38 @@ display:flex;
 align-items:center;
 gap:15px;
 background:white;
-padding:10px 20px;
+padding:8px 20px;
 border-radius:15px;
-box-shadow:0 5px 15px rgba(0,0,0,.08);
+box-shadow:0 4px 12px rgba(0,0,0,.05);
+border: 1px solid rgba(46,139,87,0.06);
+margin: 0;
 }
 
 .profile img{
 width:50px;
 height:50px;
 border-radius:50%;
+object-fit: cover;
+}
+
+.profile div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.profile div h4 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.profile div p {
+  margin: 2px 0 0 0;
+  font-size: 0.75rem;
+  color: #64748b;
+  line-height: 1.2;
 }
 
 /* ========================
@@ -146,17 +191,32 @@ margin-bottom:15px;
 display:grid;
 grid-template-columns:repeat(2,1fr);
 gap:20px;
+align-content: center;
 }
 
 .info{
 background:var(--background);
-padding:20px;
+padding:15px 20px;
 border-radius:15px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+border: 1px solid rgba(46,139,87,0.04);
 }
 
 .info h4{
 color:var(--primary);
-margin-bottom:8px;
+margin-bottom:4px;
+font-size: 0.85rem;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+}
+
+.info p {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0;
 }
 
 /* ========================
@@ -172,11 +232,18 @@ margin-bottom:30px;
 
 .stat-card{
 background:white;
-padding:25px;
+padding:20px;
 border-radius:20px;
-text-align:center;
 box-shadow:0 5px 15px rgba(0,0,0,.08);
 transition:.3s;
+display: grid;
+grid-template-columns: auto 1fr;
+grid-template-rows: auto auto;
+grid-template-areas:
+    "icon num"
+    "icon txt";
+align-items: center;
+gap: 0 15px;
 }
 
 .stat-card:hover{
@@ -184,13 +251,23 @@ transform:translateY(-8px);
 }
 
 .stat-card i{
-font-size:30px;
+grid-area: icon;
+font-size:28px;
 color:var(--primary);
-margin-bottom:15px;
+margin-bottom:0;
 }
 
 .stat-card h2{
-margin-bottom:10px;
+grid-area: num;
+font-size:24px;
+margin-bottom:2px;
+}
+
+.stat-card p {
+  grid-area: txt;
+  margin: 0;
+  font-size: 0.875rem;
+  color: #64748b;
 }
 
 /* ========================
@@ -878,14 +955,16 @@ grid-template-columns:1fr;
         gap: 12px !important;
     }
     .stat-card {
-        padding: 18px 12px !important;
+        padding: 15px 12px !important;
+        grid-template-columns: auto 1fr;
+        gap: 0 10px;
     }
     .stat-card i {
-        font-size: 24px;
-        margin-bottom: 10px;
+        font-size: 22px;
+        margin-bottom: 0 !important;
     }
     .stat-card h2 {
-        font-size: 1.15rem;
+        font-size: 1.05rem;
     }
 
     /* ---- Other Grids ---- */
